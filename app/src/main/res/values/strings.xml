@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CoronaVirusStat</string>
+    <string name="total_case">Cases:</string>
+    <string name="new_cases">Today:</string>
+    <string name="deaths">Deaths:</string>
+    <string name="recovered">Recovered:</string>
+    <string name="country_flag">Country flag</string>
+    <string name="main_fragment_title">Covid19 Global Information search</string>
+    <string name="search_hint">Type a country name or a letters</string>
+</resources>
