@@ -5,32 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coronavirusstat.R
 import com.example.coronavirusstat.model.Country
-import com.example.coronavirusstat.ui.adapter.CountryListAdapter
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+
+const val ARG_COUNTRY = "country"
 
 @ExperimentalCoroutinesApi
-class MainFragment : Fragment(), SearchView.OnQueryTextListener, CoroutineScope {
+class MainFragment : Fragment() {
 
-    private var searchFor = ""
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
+    private var country: Country? = null
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance(country: Country) =
+            MainFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_COUNTRY, country)
+                }
+            }
     }
 
-    private val viewModel: MainViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.apply {
+            country = getParcelable(ARG_COUNTRY)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,60 +42,17 @@ class MainFragment : Fragment(), SearchView.OnQueryTextListener, CoroutineScope 
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        countryName.text = "${country?.country}"
+        todayCases.text = "${country?.todayCases}"
+        recovered.text = "${country?.recovered}"
 
-        viewModel.countries.observe(viewLifecycleOwner, Observer { countries ->
-            countries?.let { setRecyclerViewList(countries) }
-        })
-
-        viewModel.showProgressBar.observe(viewLifecycleOwner, Observer { showProgress ->
-            progressBar.visibility = when (showProgress) {
-                true -> View.VISIBLE
-                else -> View.INVISIBLE
-            }
-        })
-
-        searchView.setOnQueryTextListener(this)
-
-    }
-
-    private fun setRecyclerViewList(countries: List<Country>) {
-        val adapter =
-            CountryListAdapter(countryList = countries, clickListener = recyclerClickListener)
-        recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                recyclerView.context,
-                LinearLayoutManager.VERTICAL
-            )
-        )
-        recyclerView.adapter = adapter
-    }
-
-    private val recyclerClickListener = object : CountryListAdapter.OnClickListener {
-        override fun onClickItem() {
-            Toast.makeText(activity, "Country item Clicked!", Toast.LENGTH_SHORT).show()
+        country?.countryInfo?.flag.let {
+            Picasso.get()
+                .load(it)
+                .centerCrop()
+                .fit()
+                .into(imageCountry)
         }
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        query?.let { viewModel.loadCountriesBySearch(it) }
-        return false
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        val searchText = newText.toString().trim()
-        if (searchText == searchFor)
-            return true
-
-        searchFor = searchText
-
-        launch {
-            delay(1000)
-            if (searchText != searchFor)
-                return@launch
-            newText?.let { viewModel.loadCountriesBySearch(it) }
-        }
-        return false
     }
 }

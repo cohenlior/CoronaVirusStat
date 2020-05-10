@@ -1,7 +1,10 @@
 package com.example.coronavirusstat.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Country(
 
 	@field:SerializedName("continent")
@@ -48,8 +51,9 @@ data class Country(
 
 	@field:SerializedName("todayDeaths")
 	val todayDeaths: Int? = null
-)
+) : Parcelable
 
+@Parcelize
 data class CountryInfo(
 
 	@field:SerializedName("flag")
@@ -69,4 +73,4 @@ data class CountryInfo(
 
 	@field:SerializedName("iso3")
 	val iso3: String? = null
-)
+) : Parcelable
