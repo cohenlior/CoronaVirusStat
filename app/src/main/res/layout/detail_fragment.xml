@@ -15,10 +15,11 @@
 
         <ImageView
             android:id="@+id/imageCountry"
-            android:layout_width="200dp"
-            android:layout_height="140dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/country_flag"
+            android:transitionName="MyTransition"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/countryName" />

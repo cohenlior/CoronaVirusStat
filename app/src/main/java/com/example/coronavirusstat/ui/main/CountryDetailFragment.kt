@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.coronavirusstat.R
 import com.example.coronavirusstat.model.Country
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.coroutines.*
 
 @ExperimentalCoroutinesApi
@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.detail_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -2,14 +2,16 @@ package com.example.coronavirusstat.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.coronavirusstat.R
 import com.example.coronavirusstat.model.Country
 import com.example.coronavirusstat.ui.adapter.CountryPagerAdapter
+import com.example.coronavirusstat.ui.main.MainFragment
 import com.example.coronavirusstat.ui.main.MainViewModel
 import com.example.coronavirusstat.utils.hideKeyboard
 import kotlinx.android.synthetic.main.main_activity.*
@@ -58,9 +60,24 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
     }*/
 
     private var countryPagerClickListener = object : CountryPagerAdapter.OnClickListener {
-        override fun onClickItem(country: Country) {
-            Toast.makeText(this@MainActivity, "Selected country: ${country.country}",
-                Toast.LENGTH_SHORT).show()
+        override fun onClickItem(
+            view: ImageView,
+            country: Country
+        ) {
+            val fragment = MainFragment.newInstance(country)
+            fragment.sharedElementEnterTransition = TransitionInflater.from(this@MainActivity)
+                .inflateTransition(R.transition.change_image_transform)
+            fragment.enterTransition = TransitionInflater.from(this@MainActivity)
+                .inflateTransition(android.R.transition.fade)
+            fragment.sharedElementReturnTransition =  TransitionInflater.from(this@MainActivity)
+                .inflateTransition(R.transition.change_image_transform)
+
+            this@MainActivity.supportFragmentManager
+                .beginTransaction()
+                .addSharedElement(view,"MyTransition")
+                .add(R.id.main, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
