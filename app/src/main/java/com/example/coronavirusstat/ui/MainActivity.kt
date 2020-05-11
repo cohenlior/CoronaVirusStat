@@ -52,11 +52,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
         hideKeyboard()
     }
 
-    private val recyclerClickListener = object : CountryListAdapter.OnClickListener {
+  /*  private val recyclerClickListener = object : CountryListAdapter.OnClickListener {
         override fun onClickItem() {
             Toast.makeText(this@MainActivity, "Country item Clicked!", Toast.LENGTH_SHORT).show()
         }
-    }
+    }*/
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         query?.let { viewModel.loadCountriesBySearch(it) }
