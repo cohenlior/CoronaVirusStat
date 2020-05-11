@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.coronavirusstat.R
 import com.example.coronavirusstat.model.Country
-import com.example.coronavirusstat.ui.adapter.CountryListAdapter
 import com.example.coronavirusstat.ui.adapter.CountryPagerAdapter
 import com.example.coronavirusstat.ui.main.MainViewModel
 import com.example.coronavirusstat.utils.hideKeyboard
@@ -46,9 +45,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
     }
 
     private fun setViewPager(countries: List<Country>) {
-        val adapter = CountryPagerAdapter(this, countries)
+        val adapter = CountryPagerAdapter(countries, countryPagerClickListener)
         countryViewPager.adapter = adapter
-        countryViewPager.offscreenPageLimit = 3
+        countryViewPager.setPageTransformer(ZoomOutPageTransformer())
         hideKeyboard()
     }
 
@@ -57,6 +56,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
             Toast.makeText(this@MainActivity, "Country item Clicked!", Toast.LENGTH_SHORT).show()
         }
     }*/
+
+    private var countryPagerClickListener = object : CountryPagerAdapter.OnClickListener {
+        override fun onClickItem(country: Country) {
+            Toast.makeText(this@MainActivity, "Selected country: ${country.country}",
+                Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         query?.let { viewModel.loadCountriesBySearch(it) }

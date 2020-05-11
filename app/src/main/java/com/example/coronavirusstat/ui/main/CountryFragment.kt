@@ -11,14 +11,14 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.coroutines.*
 
-const val ARG_COUNTRY = "country"
-
 @ExperimentalCoroutinesApi
 class MainFragment : Fragment() {
 
     private var country: Country? = null
 
     companion object {
+        const val ARG_COUNTRY = "country"
+
         fun newInstance(country: Country) =
             MainFragment().apply {
                 arguments = Bundle().apply {

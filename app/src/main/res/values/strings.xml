@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CoronaVirusStat</string>
     <string name="total_case">Cases:</string>
-    <string name="new_cases">Today:</string>
+    <string name="new_cases">New cases today:</string>
     <string name="deaths">Deaths:</string>
     <string name="recovered">Recovered:</string>
     <string name="country_flag">Country flag</string>
