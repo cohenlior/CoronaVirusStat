@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.detail_fragment.*
 import kotlinx.coroutines.*
 
 @ExperimentalCoroutinesApi
-class MainFragment : Fragment() {
+class CountryDetailFragment : Fragment() {
 
     private var country: Country? = null
 
@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
         const val ARG_COUNTRY = "country"
 
         fun newInstance(country: Country) =
-            MainFragment().apply {
+            CountryDetailFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_COUNTRY, country)
                 }

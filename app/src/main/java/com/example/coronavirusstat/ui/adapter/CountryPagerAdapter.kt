@@ -34,9 +34,8 @@ class CountryPagerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        setTransitionName(holder.itemView.imageCountry, "${position}_image")
         holder.itemView.setOnClickListener {
-            clickListener.onClickItem(it.imageCountry, countryList[position])
+            clickListener.onClickItem(countryList[position])
         }
         holder.onBind(countryList[position])
     }
@@ -62,10 +61,7 @@ class CountryPagerAdapter(
     }
 
     interface OnClickListener {
-        fun onClickItem(
-            view: ImageView,
-            country: Country
-        )
+        fun onClickItem(country: Country)
     }
 }
 
