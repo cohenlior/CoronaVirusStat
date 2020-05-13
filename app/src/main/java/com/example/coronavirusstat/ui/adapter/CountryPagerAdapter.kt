@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.ViewCompat
 import androidx.core.view.ViewCompat.setTransitionName
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronavirusstat.R
@@ -34,8 +33,9 @@ class CountryPagerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        setTransitionName(holder.itemView.imageCountry, "MyTransition_$position")
         holder.itemView.setOnClickListener {
-            clickListener.onClickItem(countryList[position])
+            clickListener.onClickItem(countryList[position], holder.itemView.imageCountry)
         }
         holder.onBind(countryList[position])
     }
@@ -61,7 +61,10 @@ class CountryPagerAdapter(
     }
 
     interface OnClickListener {
-        fun onClickItem(country: Country)
+        fun onClickItem(
+            country: Country,
+            imageCountry: ImageView
+        )
     }
 }
 

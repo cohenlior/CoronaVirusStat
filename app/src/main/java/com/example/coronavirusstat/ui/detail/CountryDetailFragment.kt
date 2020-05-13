@@ -1,4 +1,4 @@
-package com.example.coronavirusstat.ui.main
+package com.example.coronavirusstat.ui.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
