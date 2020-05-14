@@ -1,4 +1,4 @@
-package com.example.coronavirusstat.ui.adapter
+package com.example.coronavirusstat.ui.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +9,10 @@ import androidx.core.view.ViewCompat.setTransitionName
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronavirusstat.R
 import com.example.coronavirusstat.model.Country
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.page_item.view.*
+import java.lang.Exception
 
 
 class CountryPagerAdapter(
@@ -25,7 +27,9 @@ class CountryPagerAdapter(
                 parent,
                 false
             )
-        return ViewHolder(view)
+        return ViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int {
@@ -55,7 +59,16 @@ class CountryPagerAdapter(
                     .load(it)
                     .centerCrop()
                     .fit()
-                    .into(itemView.imageCountry)
+                    .into(itemView.imageCountry, object : Callback{
+                        override fun onSuccess() {
+                            itemView.countryProgressBar.visibility = View.GONE
+                        }
+
+                        override fun onError(e: Exception?) {
+                            TODO("Not yet implemented")
+                        }
+
+                    })
             }
         }
     }

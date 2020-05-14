@@ -18,7 +18,6 @@
             android:layout_width="200dp"
             android:layout_height="140dp"
             android:layout_marginTop="8dp"
-            android:transitionName="MyTransition"
             android:contentDescription="@string/country_flag"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +77,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recoveredTitle"
             tools:text="2000" />
+
+        <ProgressBar
+            android:id="@+id/countryProgressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:theme="@style/ProgressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imageCountry"
+            app:layout_constraintEnd_toEndOf="@+id/imageCountry"
+            app:layout_constraintStart_toStartOf="@+id/imageCountry"
+            app:layout_constraintTop_toTopOf="@+id/imageCountry" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

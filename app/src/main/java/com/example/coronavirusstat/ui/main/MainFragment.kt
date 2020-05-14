@@ -13,8 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.coronavirusstat.R
 import com.example.coronavirusstat.model.Country
-import com.example.coronavirusstat.ui.ZoomOutPageTransformer
-import com.example.coronavirusstat.ui.adapter.CountryPagerAdapter
 import com.example.coronavirusstat.ui.detail.CountryDetailFragment
 import com.example.coronavirusstat.utils.hideKeyboard
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -41,8 +39,6 @@ class MainFragment : Fragment(), CoroutineScope, SearchView.OnQueryTextListener 
 
         val view = inflater.inflate(R.layout.main_fragment, container, false)
 
-        postponeEnterTransition()
-
         viewModel.countries.observe(viewLifecycleOwner, Observer { countries ->
             countries?.let { setViewPager(countries) }
         })
@@ -59,11 +55,13 @@ class MainFragment : Fragment(), CoroutineScope, SearchView.OnQueryTextListener 
     }
 
     private fun setViewPager(countries: List<Country>) {
-        val adapter = CountryPagerAdapter(countries, countryPagerClickListener)
+        val adapter = CountryPagerAdapter(
+            countries,
+            countryPagerClickListener
+        )
         countryViewPager.adapter = adapter
         countryViewPager.setPageTransformer(ZoomOutPageTransformer())
         hideKeyboard()
-        startPostponedEnterTransition()
     }
 
     private var countryPagerClickListener = object : CountryPagerAdapter.OnClickListener {
@@ -82,6 +80,7 @@ class MainFragment : Fragment(), CoroutineScope, SearchView.OnQueryTextListener 
 
             activity!!.supportFragmentManager
                 .beginTransaction()
+                .setReorderingAllowed(true)
                 .addSharedElement(imageCountry, "MyTransition")
                 .replace(R.id.container, detailFragment)
                 .addToBackStack(null)

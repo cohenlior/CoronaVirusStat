@@ -1,4 +1,4 @@
-package com.example.coronavirusstat.ui
+package com.example.coronavirusstat.ui.main
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
