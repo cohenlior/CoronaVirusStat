@@ -31,12 +31,6 @@ data class Country(
 	@field:SerializedName("tests")
 	val tests: Int? = null,
 
-	@field:SerializedName("deathsPerOneMillion")
-	val deathsPerOneMillion: Int? = null,
-
-	@field:SerializedName("casesPerOneMillion")
-	val casesPerOneMillion: Int? = null,
-
 	@field:SerializedName("countryInfo")
 	val countryInfo: CountryInfo? = null,
 
